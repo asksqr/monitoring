@@ -2,6 +2,7 @@ package com.aldisued.iot.monitoring.tasks;
 
 import com.aldisued.iot.monitoring.IntegrationTestBase;
 import com.aldisued.iot.monitoring.dto.SensorReadingDto;
+import com.aldisued.iot.monitoring.exception.SensorNotFoundException;
 import com.aldisued.iot.monitoring.repository.SensorReadingRepository;
 import com.aldisued.iot.monitoring.service.SensorReadingService;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class Task3Tests extends IntegrationTestBase {
   }
 
   @Test
-  public void verifySensorReadingProperties() {
+  public void verifySensorReadingProperties() throws SensorNotFoundException {
     var sensorReadingDto = testSennsorReadingDto();
 
     var sensorReadingEntity = sensorReadingService.saveSensorReading(sensorReadingDto);
@@ -45,7 +46,7 @@ public class Task3Tests extends IntegrationTestBase {
 
   @Test
   @Transactional
-  public void verifySensorEntity() {
+  public void verifySensorEntity() throws SensorNotFoundException {
     var sensorReadingDto = testSennsorReadingDto();
 
     var sensorReadingEntity = sensorReadingService.saveSensorReading(sensorReadingDto);

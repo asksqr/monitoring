@@ -1,6 +1,7 @@
 package com.aldisued.iot.monitoring.messaging;
 
 import com.aldisued.iot.monitoring.dto.SensorReadingDto;
+import com.aldisued.iot.monitoring.exception.SensorNotFoundException;
 import com.aldisued.iot.monitoring.service.SensorReadingService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class SensorReadingListener {
   }
 
   @KafkaListener(topics = {"sensor-reading"}, groupId = "iot-monitoring")
-  public void listen(SensorReadingDto sensorReadingDto) {
+  public void listen(SensorReadingDto sensorReadingDto) throws SensorNotFoundException {
     sensorReadingService.saveSensorReading(sensorReadingDto);
   }
 

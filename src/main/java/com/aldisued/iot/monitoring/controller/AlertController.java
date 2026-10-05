@@ -1,8 +1,14 @@
 package com.aldisued.iot.monitoring.controller;
 
+import com.aldisued.iot.monitoring.dto.AlertDto;
+import com.aldisued.iot.monitoring.exception.AlertNotFoundException;
 import com.aldisued.iot.monitoring.service.AlertService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/alerts")
@@ -13,5 +19,10 @@ public class AlertController {
   public AlertController(AlertService alertService) {
     this.alertService = alertService;
   }
-
+  
+  @GetMapping("/latest")
+  public AlertDto listBySensorId(@RequestParam(name = "sensorId") UUID sensorId)
+          throws AlertNotFoundException {
+    return alertService.findLastAlertBySensorId(sensorId);
+  }
 }

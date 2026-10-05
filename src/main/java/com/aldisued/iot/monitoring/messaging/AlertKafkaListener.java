@@ -1,6 +1,7 @@
 package com.aldisued.iot.monitoring.messaging;
 
 import com.aldisued.iot.monitoring.dto.AlertDto;
+import com.aldisued.iot.monitoring.exception.SensorNotFoundException;
 import com.aldisued.iot.monitoring.service.AlertService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class AlertKafkaListener {
   }
 
   @KafkaListener(topics = {"sensor-alerts"}, groupId = "iot-monitoring")
-  public void listen(AlertDto alertDto) {
+  public void listen(AlertDto alertDto) throws SensorNotFoundException {
     alertService.saveAlert(alertDto);
   }
 

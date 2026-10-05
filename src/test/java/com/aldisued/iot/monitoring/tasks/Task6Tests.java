@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import com.aldisued.iot.monitoring.IntegrationTestBase;
 import com.aldisued.iot.monitoring.dto.AlertDto;
 import com.aldisued.iot.monitoring.entity.Alert;
+import com.aldisued.iot.monitoring.exception.SensorNotFoundException;
 import com.aldisued.iot.monitoring.repository.AlertRepository;
 import com.aldisued.iot.monitoring.service.AlertService;
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ public class Task6Tests extends IntegrationTestBase {
   }
 
   @Test
-  public void verifySensorReadingProperties() {
+  public void verifySensorReadingProperties() throws SensorNotFoundException {
     var alertDto = testAlertDto();
 
     Alert alert = alertService.saveAlert(alertDto);
@@ -54,7 +55,7 @@ public class Task6Tests extends IntegrationTestBase {
 
   @Test
   @Transactional
-  public void verifySensorEntity() {
+  public void verifySensorEntity() throws SensorNotFoundException {
     var alertDto = testAlertDto();
 
     Alert alert = alertService.saveAlert(alertDto);
@@ -64,7 +65,7 @@ public class Task6Tests extends IntegrationTestBase {
 
   @Test
   @Transactional
-  public void verifyKafkaMessage() {
+  public void verifyKafkaMessage() throws SensorNotFoundException {
     var alertDto = testAlertDto();
 
     alertService.saveAlert(alertDto);
